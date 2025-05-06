@@ -21,6 +21,17 @@ interface SavedMessage {
   content: string;
 }
 
+interface AgentProps {
+  userName: string;
+  userId: string;
+  profileImage?: string;
+  type: string;
+  interviewId?: string;
+  feedbackId?: string;
+  questions?: string[];
+  interviewer: any; // Define the type for the interviewer prop
+}
+
 const Agent = ({
   userName,
   userId,
@@ -28,6 +39,7 @@ const Agent = ({
   feedbackId,
   type,
   questions,
+  interviewer, // Receive the interviewer configuration as a prop
 }: AgentProps) => {
   const router = useRouter();
   const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
@@ -132,6 +144,7 @@ const Agent = ({
           .join("\n");
       }
 
+      // Use the passed interviewer configuration
       await vapi.start(interviewer, {
         variableValues: {
           questions: formattedQuestions,

@@ -1,5 +1,6 @@
 import Agent from "@/components/Agent";
 import { getCurrentUser } from "@/lib/actions/auth.action";
+import { interviewer } from "@/constants"; 
 
 const Page = async () => {
   const user = await getCurrentUser();
@@ -13,6 +14,7 @@ const Page = async () => {
         userId={user?.id}
         profileImage={user?.profileURL}
         type="generate"
+        interviewer={interviewer} // Pass the interviewer configuration
       />
     </>
   );
