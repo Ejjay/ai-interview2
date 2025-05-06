@@ -3,7 +3,8 @@
 import { generateObject } from "ai";
 import { google } from "@ai-sdk/google";
 
-import { db } from "@/firebase/admin";
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '@/firebase/admin';
 import { feedbackSchema } from "@/constants";
 
 export async function createFeedback(params: CreateFeedbackParams) {
@@ -90,23 +91,22 @@ export async function getFeedbackByInterviewId(
   return { id: feedbackDoc.id, ...feedbackDoc.data() } as Feedback;
 }
 
-export async function getLatestInterviews(
-  params: GetLatestInterviewsParams
-): Promise<Interview[] | null> {
-  const { userId, limit = 20 } = params;
-
-  const interviews = await db
-    .collection("interviews")
-    .orderBy("createdAt", "desc")
-    .where("finalized", "==", true)
-    .where("userId", "!=", userId)
-    .limit(limit)
-    .get();
-
-  return interviews.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  })) as Interview[];
+export async function getLatestInterviews({ userId, limit = 20 }: GetLatestInterviewsParams) {
+  try {
+    const interviewsRef = collection(db, 'interviews');
+    const q = query(
+      interviewsRef,
+      where('userId', '!=', userId),
+      where('finalized', '==', true),
+      limit(limit)
+    );
+    
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error('Error fetching interviews:', error);
+    return null;
+  }
 }
 
 export async function getInterviewsByUserId(userId: string) {
