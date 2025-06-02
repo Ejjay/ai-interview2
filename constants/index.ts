@@ -117,6 +117,10 @@ export const generator: CreateWorkflowDTO = {
         "maxTokens": 1000,
         "temperature": 0.7
       },
+      "voice": {
+        "voiceId": "Lily",
+        "provider": "vapi"
+      },
       "variableExtractionPlan": {
         "output": [
           {
@@ -129,7 +133,7 @@ export const generator: CreateWorkflowDTO = {
             "enum": [
               "Behavioural",
               "Technical ",
-              "Mixed"
+              "Mixed interview"
             ],
             "type": "string",
             "title": "type",
@@ -137,9 +141,9 @@ export const generator: CreateWorkflowDTO = {
           },
           {
             "enum": [
-              "entry",
-              "intermediate",
-              "experienced"
+              "entry level",
+              "intermediate level",
+              "experienced level"
             ],
             "type": "string",
             "title": "level",
@@ -160,7 +164,7 @@ export const generator: CreateWorkflowDTO = {
         ]
       },
       "messagePlan": {
-        "firstMessage": "Hey there! {{ username }}!. Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you. Are you ready?"
+        "firstMessage": "Hey there!. Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you. Are you ready?"
       }
     },
     {
@@ -179,6 +183,10 @@ export const generator: CreateWorkflowDTO = {
         "maxTokens": 1000,
         "temperature": 0.7
       },
+      "voice": {
+        "voiceId": "Lily",
+        "provider": "vapi"
+      },
       "messagePlan": {
         "firstMessage": ""
       }
@@ -188,15 +196,22 @@ export const generator: CreateWorkflowDTO = {
       "type": "tool",
       "metadata": {
         "position": {
-          "x": -376.2327302281933,
-          "y": 210.76763061599345
+          "x": -380.81844601808734,
+          "y": 166.77405307923775
         }
       },
       "tool": {
         "url": `${process.env.NEXT_PUBLIC_BASE_URL}/api/vapi/generate`,
         "body": {
           "type": "object",
-          "required": [],
+          "required": [
+            "role",
+            "type",
+            "level",
+            "amount",
+            "userid",
+            "techstack"
+          ],
           "properties": {
             "role": {
               "type": "string",
@@ -257,6 +272,10 @@ export const generator: CreateWorkflowDTO = {
         "provider": "openai",
         "maxTokens": 1000,
         "temperature": 0.7
+      },
+      "voice": {
+        "voiceId": "Lily",
+        "provider": "vapi"
       },
       "messagePlan": {
         "firstMessage": ""
