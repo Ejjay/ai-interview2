@@ -115,22 +115,32 @@ const Agent = ({
   }, [messages, callStatus, feedbackId, interviewId, router, type, userId]);
 
   const handleCall = async () => {
-    setCallStatus(CallStatus.CONNECTING);
+  setCallStatus(CallStatus.CONNECTING);
 
-    if (type === "generate") {
-      await vapi.start(
-        undefined,
-        {
-          variableValues: {
-            username: userName,
-            userid: userId,
-          },
-          clientMessages: ["transcript"],
-          serverMessages: [],
+  if (type === "generate") {
+    // ADD THIS LOG:
+    console.log('[Agent.tsx] Starting VAPI for generation. UserName:', userName, 'UserID:', userId);
+    if (!userId) {
+      console.error('[Agent.tsx] FATAL: userId is undefined or null before calling vapi.start for generation!');
+      // Optionally, show an error to the user here and don't proceed
+      // toast.error("User ID is missing, cannot start generation.");
+      setCallStatus(CallStatus.INACTIVE); // Reset status
+      return;
+    }
+
+    await vapi.start(
+      undefined,
+      {
+        variableValues: {
+          username: userName,
+          userid: userId,
         },
-        undefined,
-        generator
-      );
+        clientMessages: ["transcript"],
+        serverMessages: [],
+      },
+      undefined,
+      generator
+    );
     } else {
       let formattedQuestions = "";
       if (questions) {
