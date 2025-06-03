@@ -196,27 +196,22 @@ export const generator: CreateWorkflowDTO = {
       "type": "tool",
       "metadata": {
         "position": {
-          "x": -342.1712534896976,
-          "y": 16.23469641575799
+          "x": -345.2113438721118,
+          "y": -59.215360591461604
         }
       },
       "tool": {
-        "type": "apiRequest",
-        "function": {
-          "name": "untitled_tool",
-          "parameters": {
-            "type": "object",
-            "properties": {},
-            "required": []
-          }
-        },
-        "name": "Generate Interview",
         "url": "https://ai-interview2-chi.vercel.app/api/vapi/generate",
-        "method": "POST",
-        "headers": null,
         "body": {
           "type": "object",
-          "required": [],
+          "required": [
+            "role",
+            "type",
+            "level",
+            "amount",
+            "userid",
+            "techstack"
+          ],
           "properties": {
             "role": {
               "type": "string",
@@ -249,7 +244,41 @@ export const generator: CreateWorkflowDTO = {
               "description": ""
             }
           }
-        }
+        },
+        "name": "Generate Interview",
+        "type": "apiRequest",
+        "method": "POST",
+        "function": {
+          "name": "untitled_tool",
+          "parameters": {
+            "type": "object",
+            "required": [],
+            "properties": {}
+          }
+        },
+        "messages": [
+          {
+            "type": "request-start",
+            "content": "Generating Interview, please wait.",
+            "blocking": true
+          },
+          {
+            "type": "request-response-delayed",
+            "content": "Interview still generating, hold on",
+            "timingMilliseconds": 5000
+          },
+          {
+            "type": "request-failed",
+            "content": "Failed to Generate interviews",
+            "endCallAfterSpokenEnabled": false
+          },
+          {
+            "role": "assistant",
+            "type": "request-complete",
+            "content": "Interviews Generated Successfully",
+            "endCallAfterSpokenEnabled": false
+          }
+        ]
       }
     },
     {
@@ -281,8 +310,8 @@ export const generator: CreateWorkflowDTO = {
       "type": "tool",
       "metadata": {
         "position": {
-          "x": -365.5030181021231,
-          "y": 650.9151431654402
+          "x": -359.70956364943765,
+          "y": 639.3778510146178
         }
       },
       "tool": {
