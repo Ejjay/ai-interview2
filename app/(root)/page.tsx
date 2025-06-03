@@ -1,8 +1,10 @@
+// In app/(root)/page.tsx
 import Link from "next/link";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
-import InterviewCard from "@/components/InterviewCard";
+import InterviewCard from "@/components/InterviewCard"; // Assuming this is the correct path
+import { Interview } from "@/types"; // Assuming your types are in @/types
 
 import { getCurrentUser } from "@/lib/actions/auth.action";
 import {
@@ -13,13 +15,23 @@ import {
 async function Home() {
   const user = await getCurrentUser();
 
-  const [userInterviews, allInterview] = await Promise.all([
-    getInterviewsByUserId(user?.id!),
-    getLatestInterviews({ userId: user?.id! }),
-  ]);
+  let userInterviews: Interview[] | null = null;
+  let allInterview: Interview[] | null = null;
 
-  const hasPastInterviews = userInterviews?.length! > 0;
-  const hasUpcomingInterviews = allInterview?.length! > 0;
+  if (user && user.id) { // Check if user and user.id are available
+    try {
+      [userInterviews, allInterview] = await Promise.all([
+        getInterviewsByUserId(user.id),
+        getLatestInterviews({ userId: user.id }),
+      ]);
+    } catch (error) {
+      console.error("Error fetching interviews for homepage:", error);
+      // You might want to set a state or display a message to the user here
+    }
+  }
+
+  const hasPastInterviews = userInterviews && userInterviews.length > 0;
+  const hasUpcomingInterviews = allInterview && allInterview.length > 0;
 
   return (
     <>
@@ -52,7 +64,7 @@ async function Home() {
             userInterviews?.map((interview) => (
               <InterviewCard
                 key={interview.id}
-                userId={user?.id}
+                userId={user?.id} // Pass user.id if user exists, otherwise undefined is fine here if InterviewCard handles it
                 interviewId={interview.id}
                 role={interview.role}
                 type={interview.type}
@@ -61,7 +73,11 @@ async function Home() {
               />
             ))
           ) : (
-            <p>You haven&apos;t taken any interviews yet</p>
+            <p>
+              {user && user.id
+                ? "You haven't taken any interviews yet."
+                : "Sign in to see your interviews."}
+            </p>
           )}
         </div>
       </section>
@@ -74,7 +90,7 @@ async function Home() {
             allInterview?.map((interview) => (
               <InterviewCard
                 key={interview.id}
-                userId={user?.id}
+                userId={user?.id} // Pass user.id if user exists
                 interviewId={interview.id}
                 role={interview.role}
                 type={interview.type}
@@ -83,7 +99,11 @@ async function Home() {
               />
             ))
           ) : (
-            <p>There are no interviews available</p>
+            <p>
+              {user && user.id
+                ? "There are no interviews available at the moment."
+                : "Sign in to see available interviews."}
+            </p>
           )}
         </div>
       </section>
