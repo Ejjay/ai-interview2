@@ -101,6 +101,9 @@ export const generator: CreateWorkflowDTO = {
   "name": "ai-interview2",
   "nodes": [
     {
+  "name": "ai-interview2",
+  "nodes": [
+    {
       "name": "introduction",
       "type": "conversation",
       "isStart": true,
@@ -164,7 +167,7 @@ export const generator: CreateWorkflowDTO = {
         ]
       },
       "messagePlan": {
-        "firstMessage": ""
+        "firstMessage": "Hey there! {{ username }}"
       }
     },
     {
@@ -201,7 +204,7 @@ export const generator: CreateWorkflowDTO = {
         }
       },
       "tool": {
-        "url": `${process.env.NEXT_PUBLIC_BASE_URL}/api/vapi/generate`,
+        "url": "https://ai-interview2-chi.vercel.app/api/vapi/generate",
         "body": {
           "type": "object",
           "required": [
