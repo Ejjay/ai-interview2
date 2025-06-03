@@ -101,16 +101,13 @@ export const generator: CreateWorkflowDTO = {
   "name": "ai-interview2",
   "nodes": [
     {
-  "name": "ai-interview2",
-  "nodes": [
-    {
       "name": "introduction",
       "type": "conversation",
       "isStart": true,
       "metadata": {
         "position": {
-          "x": -352.7101465268368,
-          "y": -547.9118999993325
+          "x": -356.81126090674013,
+          "y": -527.4763901797421
         }
       },
       "prompt": "Greet the user and help them create a new AI Interviewer, like saying Hey there!. Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you. Are you ready?",
@@ -265,8 +262,8 @@ export const generator: CreateWorkflowDTO = {
       "type": "conversation",
       "metadata": {
         "position": {
-          "x": -374.55253845213247,
-          "y": 413.4239613359881
+          "x": -372.1698535919291,
+          "y": 371.55098487153083
         }
       },
       "prompt": "Thank the user for the conversation and inform them that the interview has been generated successfully. ",
@@ -289,8 +286,8 @@ export const generator: CreateWorkflowDTO = {
       "type": "tool",
       "metadata": {
         "position": {
-          "x": -375.43078278678644,
-          "y": 737.4412803291665
+          "x": -365.5030181021231,
+          "y": 650.9151431654402
         }
       },
       "tool": {
