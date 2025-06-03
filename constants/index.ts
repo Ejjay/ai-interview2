@@ -110,9 +110,9 @@ export const generator: CreateWorkflowDTO = {
           "y": -768.4126881279614
         }
       },
-      "prompt": "Greet the user and help them create a new AI Interviewer.  All the variables are required so make sure to not skip any",
+      "prompt": "Help the the user to generate a new AI Interviewer.  All the variables are required so make sure to not skip any and dont be repetitive in a single talk",
       "model": {
-        "model": "gpt-4o",
+        "model": "o4-mini",
         "provider": "openai",
         "maxTokens": 1000,
         "temperature": 0.7
@@ -120,6 +120,11 @@ export const generator: CreateWorkflowDTO = {
       "voice": {
         "voiceId": "Elliot",
         "provider": "vapi"
+      },
+      "transcriber": {
+        "model": "nova-2",
+        "provider": "deepgram",
+        "smartFormat": true
       },
       "variableExtractionPlan": {
         "output": [
@@ -164,7 +169,7 @@ export const generator: CreateWorkflowDTO = {
         ]
       },
       "messagePlan": {
-        "firstMessage": "Hello {{ name }} Welcome to Prepwise created by Christ Son Alloso, Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you. Are you ready?"
+        "firstMessage": "Hello {{ actualName }} Welcome to Prepwise created by Christ Son Alloso, Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you. Are you ready?"
       }
     },
     {
@@ -252,8 +257,8 @@ export const generator: CreateWorkflowDTO = {
       "type": "conversation",
       "metadata": {
         "position": {
-          "x": -358.64237235684135,
-          "y": 231.73875821067043
+          "x": -369.62238697483934,
+          "y": 66.2708389967982
         }
       },
       "prompt": "Thank the user for the conversation and inform them that the interview has been generated successfully. ",
@@ -276,8 +281,8 @@ export const generator: CreateWorkflowDTO = {
       "type": "tool",
       "metadata": {
         "position": {
-          "x": -357.3245526565901,
-          "y": 509.71957084583926
+          "x": -369.5245279220316,
+          "y": 385.86701217789374
         }
       },
       "tool": {
@@ -314,7 +319,7 @@ export const generator: CreateWorkflowDTO = {
       "to": "conversation_1748866642417",
       "condition": {
         "type": "ai",
-        "prompt": "After the interview geneated successfully "
+        "prompt": ""
       }
     },
     {
