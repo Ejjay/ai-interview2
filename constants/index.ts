@@ -172,8 +172,8 @@ export const generator: CreateWorkflowDTO = {
       "type": "conversation",
       "metadata": {
         "position": {
-          "x": -350.16428387666224,
-          "y": -222.7719616087109
+          "x": -335.75427475203344,
+          "y": -326.83864807777616
         }
       },
       "prompt": "Say that the Interview will be generated shortly.",
@@ -196,12 +196,24 @@ export const generator: CreateWorkflowDTO = {
       "type": "tool",
       "metadata": {
         "position": {
-          "x": -353.5799943225143,
-          "y": 45.77222290888251
+          "x": -342.1712534896976,
+          "y": 16.23469641575799
         }
       },
       "tool": {
+        "type": "apiRequest",
+        "function": {
+          "name": "untitled_tool",
+          "parameters": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        },
+        "name": "Generate Interview",
         "url": "https://ai-interview2-chi.vercel.app/api/vapi/generate",
+        "method": "POST",
+        "headers": null,
         "body": {
           "type": "object",
           "required": [],
@@ -237,16 +249,6 @@ export const generator: CreateWorkflowDTO = {
               "description": ""
             }
           }
-        },
-        "type": "apiRequest",
-        "method": "POST",
-        "function": {
-          "name": "untitled_tool",
-          "parameters": {
-            "type": "object",
-            "required": [],
-            "properties": {}
-          }
         }
       }
     },
@@ -255,8 +257,8 @@ export const generator: CreateWorkflowDTO = {
       "type": "conversation",
       "metadata": {
         "position": {
-          "x": -372.1698535919291,
-          "y": 371.55098487153083
+          "x": -360.1388907932359,
+          "y": 360.85691081039323
         }
       },
       "prompt": "Thank the user for the conversation and inform them that the interview has been generated successfully. ",
@@ -313,6 +315,14 @@ export const generator: CreateWorkflowDTO = {
       }
     },
     {
+      "from": "conversation_1748866642417",
+      "to": "hangup_1748866689255",
+      "condition": {
+        "type": "ai",
+        "prompt": ""
+      }
+    },
+    {
       "from": "conversation_1748865650845",
       "to": "API Request",
       "condition": {
@@ -325,15 +335,7 @@ export const generator: CreateWorkflowDTO = {
       "to": "conversation_1748866642417",
       "condition": {
         "type": "ai",
-        "prompt": ""
-      }
-    },
-    {
-      "from": "conversation_1748866642417",
-      "to": "hangup_1748866689255",
-      "condition": {
-        "type": "ai",
-        "prompt": ""
+        "prompt": "If the interview geneated successfully "
       }
     }
   ],
