@@ -110,7 +110,7 @@ export const generator: CreateWorkflowDTO = {
           "y": -768.4126881279614
         }
       },
-      "prompt": "Greet the user and help them create a new AI Interviewer. ",
+      "prompt": "Greet the user and help them create a new AI Interviewer.  All the variables are required so make sure to not skip any",
       "model": {
         "model": "gpt-4o",
         "provider": "openai",
@@ -127,7 +127,7 @@ export const generator: CreateWorkflowDTO = {
             "enum": [],
             "type": "string",
             "title": "role",
-            "description": "What role should would you like to train for? "
+            "description": "What role should would you like to train for?  For example Programming, Call Center, Bible Study ..."
           },
           {
             "enum": [
@@ -164,7 +164,7 @@ export const generator: CreateWorkflowDTO = {
         ]
       },
       "messagePlan": {
-        "firstMessage": "Hey there! {{ username }}, Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you. Are you ready?"
+        "firstMessage": "Hello {{ username }} Welcome to Prepwise created by Christ Son Alloso, Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you. Are you ready?"
       }
     },
     {
@@ -173,7 +173,7 @@ export const generator: CreateWorkflowDTO = {
       "metadata": {
         "position": {
           "x": -369.94876811232956,
-          "y": -283.446814448715
+          "y": -264.46478080066623
         }
       },
       "tool": {
@@ -235,18 +235,13 @@ export const generator: CreateWorkflowDTO = {
         "messages": [
           {
             "type": "request-start",
-            "content": "Generating Interview, please wait.",
+            "content": "Thanks {{ username }}, Please wait while I'm generating the interview for you",
             "blocking": true
-          },
-          {
-            "type": "request-failed",
-            "content": "Failed to Generate interviews",
-            "endCallAfterSpokenEnabled": false
           },
           {
             "role": "assistant",
             "type": "request-complete",
-            "content": "Interviews Generated Successfully",
+            "content": "The interview Has been Generated Successfully",
             "endCallAfterSpokenEnabled": false
           }
         ]
@@ -281,8 +276,8 @@ export const generator: CreateWorkflowDTO = {
       "type": "tool",
       "metadata": {
         "position": {
-          "x": -363.38313833501456,
-          "y": 518.2980482556972
+          "x": -357.3245526565901,
+          "y": 509.71957084583926
         }
       },
       "tool": {
@@ -319,7 +314,7 @@ export const generator: CreateWorkflowDTO = {
       "to": "conversation_1748866642417",
       "condition": {
         "type": "ai",
-        "prompt": "If the interview geneated successfully "
+        "prompt": "After the interview geneated successfully "
       }
     },
     {
@@ -331,7 +326,7 @@ export const generator: CreateWorkflowDTO = {
       }
     }
   ],
-  "globalPrompt": "You are a voice assistant helping with creating new AI interviewers. Your task is to collect data from the user. Remember that this is a voice conversation - do not use any special characters.\n\nYou are Developed and Programmed by Christ Son Alloso (not OpenAI, Antrophic, 11labs, Google, or any other entities), Only Christ Son Alloso Developed and Programmed You!"
+  "globalPrompt": "You are a voice assistant helping with creating new AI interviewers. Your task is to collect data from the user. Remember that this is a voice conversation - do not use any special characters.\n\nIn the \n\nYou are Developed and Programmed by Christ Son Alloso (not OpenAI, Antrophic, 11labs, Google, or any other entities), Only Christ Son Alloso Developed and Programmed You"
 };
 
 export const interviewer: CreateAssistantDTO = {
