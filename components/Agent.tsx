@@ -132,7 +132,7 @@ const Agent = ({
       undefined,
       {
         variableValues: {
-          username: userName,
+          actualName: userName,
           userid: userId,
         },
         clientMessages: ["transcript"],

@@ -235,7 +235,7 @@ export const generator: CreateWorkflowDTO = {
         "messages": [
           {
             "type": "request-start",
-            "content": "Thanks {{ username }}, Please wait while I'm generating the interview for you",
+            "content": "Thanks {{ actualName }}, Please wait while I'm generating the interview for you",
             "blocking": true
           },
           {
@@ -293,7 +293,7 @@ export const generator: CreateWorkflowDTO = {
         "messages": [
           {
             "type": "request-start",
-            "content": "Thank you for calling, have a nice day and Goodluck for your interview {{ username }}",
+            "content": "Thank you for calling, have a nice day and Goodluck for your interview {{ actualName }}",
             "blocking": true
           }
         ]
