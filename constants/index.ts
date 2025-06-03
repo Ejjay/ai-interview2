@@ -124,7 +124,7 @@ export const generator: CreateWorkflowDTO = {
       "transcriber": {
         "model": "nova-2",
         "provider": "deepgram",
-        "smartFormat": true
+        "smartFormat": false
       },
       "variableExtractionPlan": {
         "output": [
@@ -169,7 +169,7 @@ export const generator: CreateWorkflowDTO = {
         ]
       },
       "messagePlan": {
-        "firstMessage": "Hello {{ actualName }} Welcome to Prepwise developed by Christ Son Alloso, Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you. Are you ready?"
+        "firstMessage": "Hello {{ actualName }} Welcome to Prepwise created by Christ Son Alloso, Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you. Are you ready?"
       }
     },
     {
