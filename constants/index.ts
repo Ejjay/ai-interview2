@@ -164,7 +164,7 @@ export const generator: CreateWorkflowDTO = {
         ]
       },
       "messagePlan": {
-        "firstMessage": "Hello {{ username }} Welcome to Prepwise created by Christ Son Alloso, Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you. Are you ready?"
+        "firstMessage": "Hello {{ name }} Welcome to Prepwise created by Christ Son Alloso, Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you. Are you ready?"
       }
     },
     {
