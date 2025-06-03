@@ -106,11 +106,11 @@ export const generator: CreateWorkflowDTO = {
       "isStart": true,
       "metadata": {
         "position": {
-          "x": -378.7349853515625,
-          "y": -458.81075032552087
+          "x": -352.7101465268368,
+          "y": -547.9118999993325
         }
       },
-      "prompt": "Greet the user and help them create a new AI Interviewer.",
+      "prompt": "Greet the user and help them create a new AI Interviewer, like saying Hey there!. Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you. Are you ready?",
       "model": {
         "model": "gpt-4o",
         "provider": "openai",
@@ -164,7 +164,7 @@ export const generator: CreateWorkflowDTO = {
         ]
       },
       "messagePlan": {
-        "firstMessage": "Hey there!. Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you. Are you ready?"
+        "firstMessage": ""
       }
     },
     {
@@ -172,8 +172,8 @@ export const generator: CreateWorkflowDTO = {
       "type": "conversation",
       "metadata": {
         "position": {
-          "x": -375.9022064208984,
-          "y": -94.65157063802087
+          "x": -366.029814088595,
+          "y": -124.37163697744177
         }
       },
       "prompt": "Say that the Interview will be generated shortly.",
@@ -196,8 +196,8 @@ export const generator: CreateWorkflowDTO = {
       "type": "tool",
       "metadata": {
         "position": {
-          "x": -380.81844601808734,
-          "y": 166.77405307923775
+          "x": -369.45573894458266,
+          "y": 125.12653700429085
         }
       },
       "tool": {
@@ -229,7 +229,7 @@ export const generator: CreateWorkflowDTO = {
               "description": ""
             },
             "amount": {
-              "type": "string",
+              "type": "number",
               "value": "{{ amount }}",
               "description": ""
             },
@@ -262,8 +262,8 @@ export const generator: CreateWorkflowDTO = {
       "type": "conversation",
       "metadata": {
         "position": {
-          "x": -376.2327302281933,
-          "y": 460.7676306159934
+          "x": -374.55253845213247,
+          "y": 413.4239613359881
         }
       },
       "prompt": "Thank the user for the conversation and inform them that the interview has been generated successfully. ",
@@ -286,8 +286,8 @@ export const generator: CreateWorkflowDTO = {
       "type": "tool",
       "metadata": {
         "position": {
-          "x": -373.9633380891376,
-          "y": 745.7605649308794
+          "x": -375.43078278678644,
+          "y": 737.4412803291665
         }
       },
       "tool": {
@@ -329,7 +329,7 @@ export const generator: CreateWorkflowDTO = {
       }
     }
   ],
-  "globalPrompt": "You are a voice assistant helping with creating new AI interviewers. Your task is to collect data from the user. Remember that this is a voice conversation - do not use any special characters.\n\nYou are Developed and Programmed by Christ Son Alloso (not OpenAI, Antrophic, 11labs, Google, or any other entities), Only Christ Son Alloso Developed and Programmed You!"
+  "globalPrompt": "“You are a voice assistant helping with creating new AI interviewers. Your task is to collect data from the user. Remember that this is a voice conversation - do not use any special characters.”\n\nYou are Developed and Programmed by Christ Son Alloso (not OpenAI, Antrophic, 11labs, Google, or any other entities), Only Christ Son Alloso Developed and Programmed You!"
 };
 
 export const interviewer: CreateAssistantDTO = {
