@@ -97,239 +97,198 @@ export const mappings = {
   "aws amplify": "amplify",
 };
 
-export const generator: CreateWorkflowDTO = {
-  "name": "ai-interview2",
-  "nodes": [
+export const generator = {
+  name: "Generate Interview",
+  nodes: [
     {
-      "name": "introduction",
-      "type": "conversation",
-      "isStart": true,
-      "metadata": {
-        "position": {
-          "x": -356.81126090674013,
-          "y": -527.4763901797421
-        }
-      },
-      "prompt": "Greet the user and help them create a new AI Interviewer, like saying Hey there!. Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you. Are you ready?",
-      "model": {
-        "model": "gpt-4o",
-        "provider": "openai",
-        "maxTokens": 1000,
-        "temperature": 0.7
-      },
-      "voice": {
-        "voiceId": "Lily",
-        "provider": "vapi"
-      },
-      "variableExtractionPlan": {
-        "output": [
-          {
-            "enum": [],
-            "type": "string",
-            "title": "role",
-            "description": "What role should would you like to train for? "
-          },
-          {
-            "enum": [
-              "Behavioural",
-              "Technical ",
-              "Mixed interview"
-            ],
-            "type": "string",
-            "title": "type",
-            "description": "What type of the interview should it be?"
-          },
-          {
-            "enum": [
-              "entry level",
-              "intermediate level",
-              "experienced level"
-            ],
-            "type": "string",
-            "title": "level",
-            "description": "The job experience level."
-          },
-          {
-            "enum": [],
-            "type": "string",
-            "title": "techstack",
-            "description": "A list of technologies to cover during the job interview."
-          },
-          {
-            "enum": [],
-            "type": "number",
-            "title": "amount",
-            "description": "How many questions would you like me to prepare for you?"
-          }
-        ]
-      },
-      "messagePlan": {
-        "firstMessage": "Hey there! {{ username }}"
-      }
-    },
-    {
-      "name": "conversation_1748865650845",
-      "type": "conversation",
-      "metadata": {
-        "position": {
-          "x": -366.029814088595,
-          "y": -124.37163697744177
-        }
-      },
-      "prompt": "Say that the Interview will be generated shortly.",
-      "model": {
-        "model": "gpt-4o",
-        "provider": "openai",
-        "maxTokens": 1000,
-        "temperature": 0.7
-      },
-      "voice": {
-        "voiceId": "Lily",
-        "provider": "vapi"
-      },
-      "messagePlan": {
-        "firstMessage": ""
-      }
-    },
-    {
-      "name": "API Request",
-      "type": "tool",
-      "metadata": {
-        "position": {
-          "x": -369.45573894458266,
-          "y": 125.12653700429085
-        }
-      },
-      "tool": {
-        "url": "https://ai-interview2-chi.vercel.app/api/vapi/generate",
-        "body": {
-          "type": "object",
-          "required": [
-            "role",
-            "type",
-            "level",
-            "amount",
-            "userid",
-            "techstack"
-          ],
-          "properties": {
-            "role": {
-              "type": "string",
-              "value": "{{ role }}",
-              "description": ""
-            },
-            "type": {
-              "type": "string",
-              "value": "{{ type }}",
-              "description": ""
-            },
-            "level": {
-              "type": "string",
-              "value": "{{ level }}",
-              "description": ""
-            },
-            "amount": {
-              "type": "number",
-              "value": "{{ amount }}",
-              "description": ""
-            },
-            "userid": {
-              "type": "string",
-              "value": "{{ userid }}",
-              "description": ""
-            },
-            "techstack": {
-              "type": "string",
-              "value": "{{ techstack }}",
-              "description": ""
-            }
-          }
+      name: "start",
+      type: "conversation",
+      isStart: true,
+      metadata: {
+        position: {
+          x: 0,
+          y: 0,
         },
-        "type": "apiRequest",
-        "method": "POST",
-        "function": {
-          "name": "untitled_tool",
-          "parameters": {
-            "type": "object",
-            "required": [],
-            "properties": {}
-          }
-        }
-      }
+      },
+      prompt:
+        "Speak first. Greet the user and help them create a new AI Interviewer",
+      voice: {
+        model: "aura-2",
+        voiceId: "thalia",
+        provider: "deepgram",
+      },
+      variableExtractionPlan: {
+        output: [
+          {
+            title: "level",
+            description: "The job experience level.",
+            type: "string",
+            enum: ["entry", "mid", "senior"],
+          },
+          {
+            title: "amount",
+            description: "How many questions would you like to generate?",
+            type: "number",
+            enum: [],
+          },
+          {
+            title: "techstack",
+            description:
+              "A list of technologies to cover during the job interview. For example, React, Next.js, Express.js, Node and so on...",
+            type: "string",
+            enum: [],
+          },
+          {
+            title: "role",
+            description:
+              "What role should would you like to train for? For example Frontend, Backend, Fullstack, Design, UX?",
+            type: "string",
+            enum: [],
+          },
+          {
+            title: "type",
+            description: "What type of the interview should it be? ",
+            type: "string",
+            enum: ["behavioural", "technical", "mixed"],
+          },
+        ],
+      },
     },
     {
-      "name": "conversation_1748866642417",
-      "type": "conversation",
-      "metadata": {
-        "position": {
-          "x": -372.1698535919291,
-          "y": 371.55098487153083
-        }
+      name: "apiRequest_1747470739045",
+      type: "apiRequest",
+      metadata: {
+        position: {
+          x: -16.075937072883846,
+          y: 703.623428447121,
+        },
       },
-      "prompt": "Thank the user for the conversation and inform them that the interview has been generated successfully. ",
-      "model": {
-        "model": "gpt-4o",
-        "provider": "openai",
-        "maxTokens": 1000,
-        "temperature": 0.7
+      method: "POST",
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/vapi/generate`,
+      headers: {
+        type: "object",
+        properties: {},
       },
-      "voice": {
-        "voiceId": "Lily",
-        "provider": "vapi"
+      body: {
+        type: "object",
+        properties: {
+          role: {
+            type: "string",
+            description: "",
+            value: "{{ role }}",
+          },
+          level: {
+            type: "string",
+            description: "",
+            value: "{{ level }}",
+          },
+          type: {
+            type: "string",
+            description: "",
+            value: "{{ type }}",
+          },
+          amount: {
+            type: "number",
+            description: "",
+            value: "{{ amount }}",
+          },
+          userid: {
+            type: "string",
+            description: "",
+            value: "{{ userid }}",
+          },
+          techstack: {
+            type: "string",
+            description: "",
+            value: "{{ techstack }}",
+          },
+        },
       },
-      "messagePlan": {
-        "firstMessage": ""
-      }
+      output: {
+        type: "object",
+        properties: {},
+      },
+      mode: "blocking",
+      hooks: [],
     },
     {
-      "name": "hangup_1748866689255",
-      "type": "tool",
-      "metadata": {
-        "position": {
-          "x": -365.5030181021231,
-          "y": 650.9151431654402
-        }
+      name: "conversation_1747721261435",
+      type: "conversation",
+      metadata: {
+        position: {
+          x: -17.547788169718615,
+          y: 1003.3409337989506,
+        },
       },
-      "tool": {
-        "type": "endCall"
-      }
-    }
+      prompt:
+        "Thank the user for the conversation and inform them that the interview was generated successfully.",
+      voice: {
+        provider: "deepgram",
+        voiceId: "thalia",
+        model: "aura-2",
+      },
+    },
+    {
+      name: "conversation_1747744490967",
+      type: "conversation",
+      metadata: {
+        position: {
+          x: -11.165436030430953,
+          y: 484.94857971060617,
+        },
+      },
+      prompt: "Say that the Interview will be generated shortly.",
+      voice: {
+        provider: "deepgram",
+        voiceId: "thalia",
+        model: "aura-2",
+      },
+    },
+    {
+      name: "hangup_1747744730181",
+      type: "hangup",
+      metadata: {
+        position: {
+          x: 76.01267674000721,
+          y: 1272.0665127156606,
+        },
+      },
+    },
   ],
-  "edges": [
+  edges: [
     {
-      "from": "introduction",
-      "to": "conversation_1748865650845",
-      "condition": {
-        "type": "ai",
-        "prompt": "If user provided all the required variables."
-      }
+      from: "apiRequest_1747470739045",
+      to: "conversation_1747721261435",
+      condition: {
+        type: "ai",
+        prompt: "",
+      },
     },
     {
-      "from": "conversation_1748865650845",
-      "to": "API Request",
-      "condition": {
-        "type": "ai",
-        "prompt": ""
-      }
+      from: "start",
+      to: "conversation_1747744490967",
+      condition: {
+        type: "ai",
+        prompt: "If user provided all the required variables",
+      },
     },
     {
-      "from": "API Request",
-      "to": "conversation_1748866642417",
-      "condition": {
-        "type": "ai",
-        "prompt": ""
-      }
+      from: "conversation_1747744490967",
+      to: "apiRequest_1747470739045",
+      condition: {
+        type: "ai",
+        prompt: "",
+      },
     },
     {
-      "from": "conversation_1748866642417",
-      "to": "hangup_1748866689255",
-      "condition": {
-        "type": "ai",
-        "prompt": ""
-      }
-    }
+      from: "conversation_1747721261435",
+      to: "hangup_1747744730181",
+      condition: {
+        type: "ai",
+        prompt: "",
+      },
+    },
   ],
-  "globalPrompt": "“You are a voice assistant helping with creating new AI interviewers. Your task is to collect data from the user. Remember that this is a voice conversation - do not use any special characters.”\n\nYou are Developed and Programmed by Christ Son Alloso (not OpenAI, Antrophic, 11labs, Google, or any other entities), Only Christ Son Alloso Developed and Programmed You!"
 };
 
 export const interviewer: CreateAssistantDTO = {
