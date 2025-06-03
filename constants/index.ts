@@ -168,36 +168,12 @@ export const generator: CreateWorkflowDTO = {
       }
     },
     {
-      "name": "conversation_1748865650845",
-      "type": "conversation",
-      "metadata": {
-        "position": {
-          "x": -335.75427475203344,
-          "y": -326.83864807777616
-        }
-      },
-      "prompt": "Say that the Interview will be generated shortly.",
-      "model": {
-        "model": "gpt-4o",
-        "provider": "openai",
-        "maxTokens": 1000,
-        "temperature": 0.7
-      },
-      "voice": {
-        "voiceId": "Elliot",
-        "provider": "vapi"
-      },
-      "messagePlan": {
-        "firstMessage": ""
-      }
-    },
-    {
       "name": "API Request",
       "type": "tool",
       "metadata": {
         "position": {
-          "x": -345.2113438721118,
-          "y": -59.215360591461604
+          "x": -369.94876811232956,
+          "y": -283.446814448715
         }
       },
       "tool": {
@@ -263,11 +239,6 @@ export const generator: CreateWorkflowDTO = {
             "blocking": true
           },
           {
-            "type": "request-response-delayed",
-            "content": "Interview still generating, hold on",
-            "timingMilliseconds": 5000
-          },
-          {
             "type": "request-failed",
             "content": "Failed to Generate interviews",
             "endCallAfterSpokenEnabled": false
@@ -286,8 +257,8 @@ export const generator: CreateWorkflowDTO = {
       "type": "conversation",
       "metadata": {
         "position": {
-          "x": -360.1388907932359,
-          "y": 360.85691081039323
+          "x": -358.64237235684135,
+          "y": 231.73875821067043
         }
       },
       "prompt": "Thank the user for the conversation and inform them that the interview has been generated successfully. ",
@@ -310,8 +281,8 @@ export const generator: CreateWorkflowDTO = {
       "type": "tool",
       "metadata": {
         "position": {
-          "x": -359.70956364943765,
-          "y": 639.3778510146178
+          "x": -363.38313833501456,
+          "y": 518.2980482556972
         }
       },
       "tool": {
@@ -336,24 +307,8 @@ export const generator: CreateWorkflowDTO = {
   ],
   "edges": [
     {
-      "from": "Introduction",
-      "to": "conversation_1748865650845",
-      "condition": {
-        "type": "ai",
-        "prompt": "If user provided all the required variables."
-      }
-    },
-    {
       "from": "conversation_1748866642417",
       "to": "hangup_1748866689255",
-      "condition": {
-        "type": "ai",
-        "prompt": ""
-      }
-    },
-    {
-      "from": "conversation_1748865650845",
-      "to": "API Request",
       "condition": {
         "type": "ai",
         "prompt": ""
@@ -365,6 +320,14 @@ export const generator: CreateWorkflowDTO = {
       "condition": {
         "type": "ai",
         "prompt": "If the interview geneated successfully "
+      }
+    },
+    {
+      "from": "Introduction",
+      "to": "API Request",
+      "condition": {
+        "type": "ai",
+        "prompt": "If collected all required variables"
       }
     }
   ],
