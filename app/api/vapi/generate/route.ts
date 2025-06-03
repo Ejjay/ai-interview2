@@ -5,25 +5,85 @@ import { getRandomInterviewCover } from "@/lib/utils";
 
 export async function POST(request: Request) {
   let requestData;
+  let paramsFromToolCall = false;
+  let toolCallArgs: any;
+
   try {
     requestData = await request.json();
-    console.log("Received request data:", JSON.stringify(requestData, null, 2)); // Log incoming data
+    console.log("Received request data:", JSON.stringify(requestData, null, 2));
 
-    const { type, role, level, techstack, amount, userid } = requestData;
+    // Check if the payload is from an assistant's tool call via Vapi's wrapped message
+    // This structure is based on the comment you provided.
+    if (
+      requestData.message &&
+      requestData.message.toolCallList &&
+      Array.isArray(requestData.message.toolCallList) &&
+      requestData.message.toolCallList.length > 0 &&
+      requestData.message.toolCallList[0].function &&
+      requestData.message.toolCallList[0].function.arguments
+    ) {
+      const funcArgs = requestData.message.toolCallList[0].function.arguments;
+      if (typeof funcArgs === 'string') {
+        try {
+          toolCallArgs = JSON.parse(funcArgs);
+          paramsFromToolCall = true;
+          console.log("Parsed arguments from assistant tool call (string):", toolCallArgs);
+        } catch (e) {
+          console.error("Failed to parse tool call arguments string:", funcArgs, e);
+          // If parsing fails, we'll fall back to the direct requestData access.
+        }
+      } else if (typeof funcArgs === 'object') {
+        toolCallArgs = funcArgs;
+        paramsFromToolCall = true;
+        console.log("Received object arguments from assistant tool call:", toolCallArgs);
+      }
+    }
+
+    let role, level, techstackInput, type, amount, userid;
+
+    if (paramsFromToolCall && toolCallArgs) {
+      role = toolCallArgs.role;
+      level = toolCallArgs.level;
+      techstackInput = toolCallArgs.techstack; // Could be a string or an array
+      type = toolCallArgs.type;
+      amount = toolCallArgs.amount;
+      userid = toolCallArgs.userid; // Make sure the assistant tool provides this
+    } else {
+      // Fallback to the direct payload structure (e.g., from workflow's apiRequest tool)
+      console.log("Falling back to direct request data access.");
+      role = requestData.role;
+      level = requestData.level;
+      techstackInput = requestData.techstack;
+      type = requestData.type;
+      amount = requestData.amount;
+      userid = requestData.userid;
+    }
 
     // Validate crucial inputs
-    if (!role || !level || !techstack || !amount || !userid) {
-      console.error("Missing crucial data in request:", requestData);
+    if (!role || !level || !techstackInput || !amount || !userid) {
+      console.error("Missing crucial data after attempting to extract:", { role, level, techstackInput, amount, userid });
       return Response.json({ success: false, error: "Missing required fields" }, { status: 400 });
     }
 
-    console.log("Attempting to generate text with Gemini...");
+    // Process techstackInput into an array of strings
+    let finalTechstackArray: string[];
+    if (typeof techstackInput === 'string') {
+      finalTechstackArray = techstackInput.split(",").map(s => s.trim());
+    } else if (Array.isArray(techstackInput)) {
+      finalTechstackArray = techstackInput.map(s => String(s).trim());
+    } else {
+      console.error("Techstack is in an unexpected format:", techstackInput);
+      return Response.json({ success: false, error: "Techstack format error" }, { status: 400 });
+    }
+    console.log("Final techstack array:", finalTechstackArray);
+
+    console.log("Attempting to generate text with Gemini with params:", { role, level, finalTechstackArray, type, amount });
     const { text: questionsString } = await generateText({
-      model: google("gemini-2.0-flash-001"), // Ensure this model is correct and active
+      model: google("gemini-2.0-flash-001"),
       prompt: `Prepare questions for a job interview.
         The job role is ${role}.
         The job experience level is ${level}.
-        The tech stack used in the job is: ${techstack}.
+        The tech stack used in the job is: ${finalTechstackArray.join(", ")}.
         The focus between behavioural and technical questions should lean towards: ${type}.
         The amount of questions required is: ${amount}.
         Please return only the questions, without any additional text.
@@ -34,7 +94,7 @@ export async function POST(request: Request) {
         Thank you! <3
       `,
     });
-    console.log("Raw response from Gemini:", questionsString); // CRITICAL LOG
+    console.log("Raw response from Gemini:", questionsString);
 
     let parsedQuestions;
     try {
@@ -42,7 +102,7 @@ export async function POST(request: Request) {
       console.log("Successfully parsed questions:", parsedQuestions);
     } catch (parseError) {
       console.error("Failed to parse questions string from Gemini:", parseError);
-      console.error("Problematic questions string:", questionsString); // Log the string that failed
+      console.error("Problematic questions string:", questionsString);
       return Response.json({ success: false, error: "Failed to parse AI generated questions" }, { status: 500 });
     }
 
@@ -50,26 +110,25 @@ export async function POST(request: Request) {
       role: role,
       type: type,
       level: level,
-      techstack: typeof techstack === 'string' ? techstack.split(",").map(s => s.trim()) : [], // Handle if techstack is not a string
+      techstack: finalTechstackArray,
       questions: parsedQuestions,
       userId: userid,
-      finalized: true,
+      finalized: true, // Assuming interview should be finalized after question generation
       coverImage: getRandomInterviewCover(),
       createdAt: new Date().toISOString(),
     };
     console.log("Interview object to be saved:", JSON.stringify(interview, null, 2));
 
-    await db.collection("interviews").add(interview);
-    console.log("Interview successfully saved to Firestore for userid:", userid);
+    const interviewRef = await db.collection("interviews").add(interview);
+    console.log("Interview successfully saved to Firestore with ID:", interviewRef.id, "for userid:", userid);
 
-    return Response.json({ success: true, interviewId: "SOME_ID_IF_YOU_HAVE_IT" }, { status: 200 }); // Consider returning the new ID
-  } catch (error) {
+    return Response.json({ success: true, interviewId: interviewRef.id }, { status: 200 });
+  } catch (error: any) {
     console.error("Unhandled error in /api/vapi/generate:", error);
-    // Log the requestData if available and it's not a JSON parsing error of the request itself
     if (requestData) {
-        console.error("Request data at time of error:", JSON.stringify(requestData, null, 2));
+      console.error("Request data at time of error:", JSON.stringify(requestData, null, 2));
     }
-    return Response.json({ success: false, error: (error as Error).message || "Unknown server error" }, { status: 500 });
+    return Response.json({ success: false, error: error.message || "Unknown server error" }, { status: 500 });
   }
 }
 
