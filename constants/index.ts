@@ -289,7 +289,6 @@ export const generator: CreateWorkflowDTO = {
       },
     },
   ],
-  "globalPrompt": "“You are a voice assistant helping with creating new AI interviewers. Your task is to collect data from the user. Remember that this is a voice conversation - do not use any special characters.”\n\nYou are Developed and Programmed by Christ Son Alloso (not OpenAI, Antrophic, 11labs, Google, or any other entities), Only Christ Son Alloso Developed and Programmed You!"
 };
 
 export const interviewer: CreateAssistantDTO = {
