@@ -112,19 +112,20 @@ export const generator: CreateWorkflowDTO = {
       },
       "prompt": "Help the the user to generate a new AI Interviewer.  All the variables are required so make sure to not skip any and dont be repetitive in a single talk",
       "model": {
-        "model": "gpt-4o",
-        "provider": "openai",
+        "model": "claude-3-5-sonnet-20241022",
+        "provider": "anthropic",
         "maxTokens": 1000,
         "temperature": 0.7
       },
       "voice": {
-        "voiceId": "Elliot",
-        "provider": "vapi"
+        "model": "eleven_turbo_v2_5",
+        "voiceId": "CwhRBWXzGAHq8TQ4Fs17",
+        "provider": "11labs"
       },
       "transcriber": {
-        "model": "nova-2",
-        "provider": "deepgram",
-        "smartFormat": false
+        "model": "scribe_v1",
+        "language": "en",
+        "provider": "11labs"
       },
       "variableExtractionPlan": {
         "output": [
