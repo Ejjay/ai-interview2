@@ -177,8 +177,8 @@ export const generator: CreateWorkflowDTO = {
       "type": "tool",
       "metadata": {
         "position": {
-          "x": -369.94876811232956,
-          "y": -264.46478080066623
+          "x": -342.7152226383445,
+          "y": -332.2063434018507
         }
       },
       "tool": {
@@ -246,82 +246,24 @@ export const generator: CreateWorkflowDTO = {
           {
             "role": "assistant",
             "type": "request-complete",
-            "content": "The interview Has been Generated Successfully",
-            "endCallAfterSpokenEnabled": false
-          }
-        ]
-      }
-    },
-    {
-      "name": "conversation_1748866642417",
-      "type": "conversation",
-      "metadata": {
-        "position": {
-          "x": -369.62238697483934,
-          "y": 66.2708389967982
-        }
-      },
-      "prompt": "Thank the user for the conversation and inform them that the interview has been generated successfully. ",
-      "model": {
-        "model": "gpt-4o",
-        "provider": "openai",
-        "maxTokens": 1000,
-        "temperature": 0.7
-      },
-      "voice": {
-        "voiceId": "Elliot",
-        "provider": "vapi"
-      },
-      "messagePlan": {
-        "firstMessage": ""
-      }
-    },
-    {
-      "name": "hangup_1748866689255",
-      "type": "tool",
-      "metadata": {
-        "position": {
-          "x": -369.5245279220316,
-          "y": 385.86701217789374
-        }
-      },
-      "tool": {
-        "type": "endCall",
-        "function": {
-          "name": "untitled_tool",
-          "parameters": {
-            "type": "object",
-            "required": [],
-            "properties": {}
-          }
-        },
-        "messages": [
+            "content": "Okay, Got it {{ actualName }}! I have successfully generated your interview, you'll be able to see it after I end this call. Again {{ actualName }}, thank you for calling and God bless on your interview. Bye!",
+            "endCallAfterSpokenEnabled": true
+          },
           {
-            "type": "request-start",
-            "content": "Thank you for calling, have a nice day and Goodluck for your interview {{ actualName }}",
-            "blocking": true
+            "type": "request-failed",
+            "content": "I'm sorry there was a problem generating your interview",
+            "endCallAfterSpokenEnabled": true
+          },
+          {
+            "type": "request-response-delayed",
+            "content": "Almost done",
+            "timingMilliseconds": 1000
           }
         ]
       }
     }
   ],
   "edges": [
-    {
-      "from": "conversation_1748866642417",
-      "to": "hangup_1748866689255",
-      "condition": {
-        "type": "ai",
-        "prompt": ""
-      }
-    },
-    {
-      "from": "API Request",
-      "to": "conversation_1748866642417",
-      "condition": {
-        "type": "ai",
-        "prompt": ""
-      }
-    },
     {
       "from": "Introduction",
       "to": "API Request",
