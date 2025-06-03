@@ -123,7 +123,7 @@ const Agent = ({
     if (!userId) {
       console.error('[Agent.tsx] FATAL: userId is undefined or null before calling vapi.start for generation!');
       // Optionally, show an error to the user here and don't proceed
-      // toast.error("User ID is missing, cannot start generation.");
+      toast.error("User ID is missing, cannot start generation.");
       setCallStatus(CallStatus.INACTIVE); // Reset status
       return;
     }
