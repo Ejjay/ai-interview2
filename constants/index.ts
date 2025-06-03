@@ -112,7 +112,7 @@ export const generator: CreateWorkflowDTO = {
       },
       "prompt": "Help the the user to generate a new AI Interviewer.  All the variables are required so make sure to not skip any and dont be repetitive in a single talk",
       "model": {
-        "model": "o4-mini",
+        "model": "gpt-4o",
         "provider": "openai",
         "maxTokens": 1000,
         "temperature": 0.7
@@ -169,7 +169,7 @@ export const generator: CreateWorkflowDTO = {
         ]
       },
       "messagePlan": {
-        "firstMessage": "Hello {{ actualName }} Welcome to Prepwise created by Christ Son Alloso, Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you. Are you ready?"
+        "firstMessage": "Hello {{ actualName }} Welcome to Prepwise developed by Christ Son Alloso, Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you. Are you ready?"
       }
     },
     {
