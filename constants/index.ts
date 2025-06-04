@@ -106,8 +106,8 @@ export const generator: CreateWorkflowDTO = {
       "isStart": true,
       "metadata": {
         "position": {
-          "x": -483.7352768902279,
-          "y": -364.73204935638995
+          "x": -500.5280421897071,
+          "y": -393.50943379649414
         }
       },
       "prompt": "Help the the user to generate a new AI Interviewer.  All the variables are required so make sure to not skip any and dont be repetitive in a single talk",
@@ -118,8 +118,10 @@ export const generator: CreateWorkflowDTO = {
         "temperature": 0.7
       },
       "voice": {
-        "provider": "vapi",
-        "voiceId": "Elliot"
+        "model": "PlayHT2.0-turbo",
+        "speed": 1,
+        "voiceId": "s3://voice-cloning-zero-shot/801a663f-efd0-4254-98d0-5c175514c3e8/jennifer/manifest.json",
+        "provider": "playht"
       },
       "variableExtractionPlan": {
         "output": [
@@ -202,8 +204,8 @@ export const interviewer: CreateAssistantDTO = {
     language: "en",
   },
   voice: {
-    provider: "playht",
-    voiceId: "pia",
+    provider: "11labs",
+    voiceId: "bert",
     stability: 0.4,
     similarityBoost: 0.8,
     speed: 0.9,
