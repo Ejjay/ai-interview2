@@ -204,14 +204,14 @@ export const interviewer: CreateAssistantDTO = {
     language: "en",
   },
   voice: {
-    provider: "11labs",
-    voiceId: "adam",
-    stability: 0.4,
-    similarityBoost: 0.8,
-    speed: 0.9,
-    style: 0.5,
-    useSpeakerBoost: true,
-  },
+  provider: "11labs",
+  voiceId: "sarah",
+  stability: 0.35,         // Lowered for more expression
+  similarityBoost: 0.75,    // Slightly lowered for more natural variation
+  speed: 0.95,              // Slightly faster for a more casual pace
+  style: 0.7,               // Increased for more friendliness and emotion
+  useSpeakerBoost: true,
+},
   model: {
     provider: "openai",
     model: "gpt-4",
