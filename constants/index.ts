@@ -101,31 +101,25 @@ export const generator: CreateWorkflowDTO = {
   "name": "ai-interview2",
   "nodes": [
     {
-      "name": "Introduction",
+      "name": "introduction",
       "type": "conversation",
       "isStart": true,
       "metadata": {
         "position": {
-          "x": -355.2271093921549,
-          "y": -768.4126881279614
+          "x": -483.7352768902279,
+          "y": -364.73204935638995
         }
       },
       "prompt": "Help the the user to generate a new AI Interviewer.  All the variables are required so make sure to not skip any and dont be repetitive in a single talk",
       "model": {
-        "model": "claude-3-5-sonnet-20241022",
-        "provider": "anthropic",
+        "model": "gpt-4o",
+        "provider": "openai",
         "maxTokens": 1000,
         "temperature": 0.7
       },
       "voice": {
-        "model": "eleven_turbo_v2_5",
-        "voiceId": "CwhRBWXzGAHq8TQ4Fs17",
-        "provider": "11labs"
-      },
-      "transcriber": {
-        "model": "scribe_v1",
-        "language": "en",
-        "provider": "11labs"
+        "provider": "vapi",
+        "voiceId": "Elliot"
       },
       "variableExtractionPlan": {
         "output": [
@@ -133,13 +127,13 @@ export const generator: CreateWorkflowDTO = {
             "enum": [],
             "type": "string",
             "title": "role",
-            "description": "What role should would you like to train for?  For example Programming, Call Center, Bible Study ..."
+            "description": "What role should would you like to train for?  For example Programming, Call Center, guitar fingerstyle ..."
           },
           {
             "enum": [
-              "Behavioural",
               "Technical ",
-              "Mixed interview"
+              "Behavioral ",
+              "Mixed interview "
             ],
             "type": "string",
             "title": "type",
@@ -147,9 +141,9 @@ export const generator: CreateWorkflowDTO = {
           },
           {
             "enum": [
-              "entry level",
-              "intermediate level",
-              "experienced level"
+              "Entry level",
+              "Intermediate level",
+              "Experienced level "
             ],
             "type": "string",
             "title": "level",
@@ -174,121 +168,42 @@ export const generator: CreateWorkflowDTO = {
       }
     },
     {
-      "name": "API Request",
+      "name": "node_1749022839658",
       "type": "tool",
       "metadata": {
         "position": {
-          "x": -342.7152226383445,
-          "y": -332.2063434018507
+          "x": -470.0198055968862,
+          "y": 41.754783582743556
         }
       },
-      "tool": {
-        "url": "http://localhost:300/api/vapi/generate",
-        "body": {
-          "type": "object",
-          "required": [
-            "role",
-            "type",
-            "level",
-            "amount",
-            "userid",
-            "techstack"
-          ],
-          "properties": {
-            "role": {
-              "type": "string",
-              "value": "{{ role }}",
-              "description": ""
-            },
-            "type": {
-              "type": "string",
-              "value": "{{ type }}",
-              "description": ""
-            },
-            "level": {
-              "type": "string",
-              "value": "{{ level }}",
-              "description": ""
-            },
-            "amount": {
-              "type": "number",
-              "value": "{{ amount }}",
-              "description": ""
-            },
-            "userid": {
-              "type": "string",
-              "value": "{{ userid }}",
-              "description": ""
-            },
-            "techstack": {
-              "type": "string",
-              "value": "{{ techstack }}",
-              "description": ""
-            }
-          }
-        },
-        "name": "Generate Interview",
-        "type": "apiRequest",
-        "method": "POST",
-        "function": {
-          "name": "untitled_tool",
-          "parameters": {
-            "type": "object",
-            "required": [],
-            "properties": {}
-          }
-        },
-        "messages": [
-          {
-            "type": "request-start",
-            "content": "Thanks {{ actualName }}, Please wait while I'm generating the interview for you",
-            "blocking": true
-          },
-          {
-            "role": "assistant",
-            "type": "request-complete",
-            "content": "Okay, Got it {{ actualName }}! I have successfully generated your interview, you'll be able to see it after I end this call. Again {{ actualName }}, thank you for calling and God bless on your interview. Bye!",
-            "endCallAfterSpokenEnabled": true
-          },
-          {
-            "type": "request-failed",
-            "content": "I'm sorry there was a problem generating your interview",
-            "endCallAfterSpokenEnabled": true
-          },
-          {
-            "type": "request-response-delayed",
-            "content": "Almost done",
-            "timingMilliseconds": 1000
-          }
-        ]
-      }
+      "toolId": "67830c6f-8414-496f-8403-905e190e3469"
     }
   ],
   "edges": [
     {
-      "from": "Introduction",
-      "to": "API Request",
+      "from": "introduction",
+      "to": "node_1749022839658",
       "condition": {
         "type": "ai",
-        "prompt": "If collected all required variables"
+        "prompt": "If collected all variables"
       }
     }
   ],
-  "globalPrompt": "You are a voice assistant helping with creating new AI interviewers. Your task is to collect data from the user. Remember that this is a voice conversation - do not use any special characters.\n\nIn the \n\nYou are Developed and Programmed by Christ Son Alloso (not OpenAI, Antrophic, 11labs, Google, or any other entities), Only Christ Son Alloso Developed and Programmed You"
+  "globalPrompt": "You are a voice assistant helping with creating new AI interviewers. Your task is to collect data from the user. Remember that this is a voice conversation - do not use any special characters.\n\nYou are Developed and Programmed by Christ Son Alloso (not OpenAI, Antrophic, 11labs, Google, or any other entities), Only Christ Son Alloso Developed and Programmed You"
 };
 
 export const interviewer: CreateAssistantDTO = {
   name: "Interviewer",
   firstMessage:
-    "Hello! Thank you for taking the time to speak with me today. I'm excited to learn more about you and your experience.",
+    "Hello {{ actualName }}!, Thank you for calling. Lets start this interview by introducing yourself",
   transcriber: {
     provider: "deepgram",
     model: "nova-2",
     language: "en",
   },
   voice: {
-    provider: "11labs",
-    voiceId: "sarah",
+    provider: "playht",
+    voiceId: "pia",
     stability: 0.4,
     similarityBoost: 0.8,
     speed: 0.9,
