@@ -183,7 +183,7 @@ export const generator: CreateWorkflowDTO = {
         }
       },
       "tool": {
-        "url": "https://ai-interview2-chi.vercel.app/api/vapi/generate",
+        "url": "http://localhost:300/api/vapi/generate",
         "body": {
           "type": "object",
           "required": [
