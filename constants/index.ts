@@ -112,10 +112,8 @@ export const generator: CreateWorkflowDTO = {
       },
       "prompt": "Help the the user to generate a new AI Interviewer.  All the variables are required so make sure to not skip any and dont be repetitive in a single talk",
       "model": {
-        "model": "gemini-1.5-flash-latest",
-        "provider": "google",
-        "maxTokens": 1000,
-        "temperature": 0.7
+        "model": "gemini-2.0-flash",
+        "provider": "google"
       },
       "voice": {
         "model": "PlayHT2.0-turbo",
