@@ -98,7 +98,7 @@ export const mappings = {
 };
 
 export const generator: CreateWorkflowDTO = {
-  "name": "generate",
+  "name": "Untitled Workflow",
   "nodes": [
     {
       "name": "introduction",
@@ -106,8 +106,8 @@ export const generator: CreateWorkflowDTO = {
       "isStart": true,
       "metadata": {
         "position": {
-          "x": -567.4723328691721,
-          "y": -1111.8966742324847
+          "x": -558.0356805516665,
+          "y": -1046.871807904813
         }
       },
       "prompt": "Help the the user to generate a new AI Interviewer.  All the variables are required so dont skip any of them, be very friendly and casual and be verh friendly and welcoming ",
@@ -134,7 +134,7 @@ export const generator: CreateWorkflowDTO = {
             "enum": [],
             "type": "string",
             "title": "role",
-            "description": "Okay {{ username }} What role should would you like to train for?  For example Programming, Call Center, guitar fingerstyle or Word of God..."
+            "description": "Okay {{ actualName }} What role should would you like to train for?  For example Programming, Call Center, guitar fingerstyle or Word of God..."
           },
           {
             "enum": [
@@ -171,71 +171,106 @@ export const generator: CreateWorkflowDTO = {
         ]
       },
       "messagePlan": {
-        "firstMessage": "Hello {{ username }} Welcome to Prepwise created by Christ Son Alloso!. Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you, Are you ready {{ username }}?"
+        "firstMessage": "Hello {{ actualName }} Welcome to Prepwise created by Christ Son Alloso!. Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you, Are you ready {{ actualName }}?"
       }
     },
     {
-  "name": "API Request",
-  "type": "tool",
-  "metadata": {
-    "position": {
-      "x": -598.6637776692708,
-      "y": -507.67753092447913
-    }
-  },
-  "tool": {
-    "url": "https://ej-ai-interviewer.vercel.app/api/vapi/generate",
-    "method": "POST",
-    "name": "getUserData",
-    "type": "apiRequest",
-    "body": {
-      "role": "{{role}}",
-      "type": "{{type}}",
-      "level": "{{level}}",
-      "amount": "{{amount}}",
-      "userid": "{{userid}}",
-      "techstack": "{{techstack}}"
-    },
-    "function": {
-      "name": "untitled_tool",
-      "parameters": {
-        "type": "object",
-        "required": [],
-        "properties": {}
+      "name": "API Request",
+      "type": "tool",
+      "metadata": {
+        "position": {
+          "x": -557.2616795393619,
+          "y": -625.6064414397547
+        }
+      },
+      "tool": {
+        "url": "https://ej-ai-interviewer.vercel.app/api/vapi/generate",
+        "body": {
+          "type": "object",
+          "required": [
+            "role",
+            "type",
+            "level",
+            "userid",
+            "techstack",
+            "amount"
+          ],
+          "properties": {
+            "role": {
+              "type": "string",
+              "value": "{{ role }}",
+              "description": ""
+            },
+            "type": {
+              "type": "string",
+              "value": "{{ type }}",
+              "description": ""
+            },
+            "level": {
+              "type": "string",
+              "value": "{{ level }}",
+              "description": ""
+            },
+            "amount": {
+              "type": "number",
+              "value": "{{ amount }}",
+              "description": ""
+            },
+            "userid": {
+              "type": "string",
+              "value": "{{ userid }}",
+              "description": ""
+            },
+            "techstack": {
+              "type": "string",
+              "value": "{{ techstack }}",
+              "description": ""
+            }
+          }
+        },
+        "name": "getUserData",
+        "type": "apiRequest",
+        "method": "POST",
+        "function": {
+          "name": "untitled_tool",
+          "parameters": {
+            "type": "object",
+            "required": [],
+            "properties": {}
+          }
+        },
+        "messages": [
+          {
+            "type": "request-start",
+            "content": "ahahh, Okay! Thanks {{ actualName }}, Please wait while I'm generating the interview for you",
+            "blocking": true
+          },
+          {
+            "role": "assistant",
+            "type": "request-complete",
+            "content": "Okay, Got it {{actualName }}.. I have successfully generated your interview. you'll be able to see it after I end this call. Again, thank you for calling. and God bless on your interview. Bye for now!",
+            "endCallAfterSpokenEnabled": true
+          },
+          {
+            "type": "request-failed",
+            "content": "I'm sorry there was a problem generating your interview.",
+            "endCallAfterSpokenEnabled": false
+          },
+          {
+            "type": "request-response-delayed",
+            "content": "Just hold on there",
+            "timingMilliseconds": 3000
+          }
+        ]
       }
     },
-    "messages": [
-      {
-        "type": "request-start",
-        "content": "ahahh, Okay! Thanks {{ username }}, Please wait while I'm generating the interview for you",
-        "blocking": true
-      },
-      {
-        "role": "assistant",
-        "type": "request-complete",
-        "content": "Okay, Got it {{username }}.. I have successfully generated your interview. you'll be able to see it after I end this call. Again, thank you for calling. and God bless on your interview. Bye for now!",
-        "endCallAfterSpokenEnabled": true
-      },
-      {
-        "type": "request-failed",
-        "content": "I'm sorry there was a problem generating your interview.",
-        "endCallAfterSpokenEnabled": false
-      },
-      {
-        "type": "request-response-delayed",
-        "content": "Just hold on there",
-        "timingMilliseconds": 3000
-      }
-    ]
-  }
-},
     {
       "name": "node_1749465567639",
       "type": "tool",
       "metadata": {
         "position": {
-          "x": -585.0604970990576,
-          "y": 62.485278406002664
+          "x": -527.8016674902216,
+          "y": -170.1899155437905
         }
       },
       "tool": {
@@ -263,7 +298,7 @@ export const generator: CreateWorkflowDTO = {
       "to": "API Request",
       "condition": {
         "type": "ai",
-        "prompt": "If successfully collected all required variables "
+        "prompt": ""
       }
     },
     {
