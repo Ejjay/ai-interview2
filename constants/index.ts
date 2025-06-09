@@ -106,8 +106,8 @@ export const generator: CreateWorkflowDTO = {
       "isStart": true,
       "metadata": {
         "position": {
-          "x": -617.277323404948,
-          "y": -1109.707234700521
+          "x": -567.4723328691721,
+          "y": -1111.8966742324847
         }
       },
       "prompt": "Help the the user to generate a new AI Interviewer.  All the variables are required so dont skip any of them, be very friendly and casual and be verh friendly and welcoming ",
@@ -244,6 +244,12 @@ export const generator: CreateWorkflowDTO = {
             "type": "request-start",
             "content": "ahahh, Okay! Thanks {{ actualName }}, Please wait while I'm generating the interview for you",
             "blocking": true
+          },
+          {
+            "role": "assistant",
+            "type": "request-complete",
+            "content": "Okay, Got it {{actualName }}.. I have successfully generated your interview. you'll be able to see it after I end this call. Again, thank you for calling. and God bless on your interview. Bye for now!",
+            "endCallAfterSpokenEnabled": true
           }
         ]
       }
@@ -253,8 +259,8 @@ export const generator: CreateWorkflowDTO = {
       "type": "tool",
       "metadata": {
         "position": {
-          "x": -598.397407752298,
-          "y": -150.5447087391455
+          "x": -628.9141330284988,
+          "y": 208.4755770903901
         }
       },
       "tool": {
@@ -270,7 +276,6 @@ export const generator: CreateWorkflowDTO = {
         "messages": [
           {
             "type": "request-start",
-            "content": "Okay, Got it {{actualName }}.. I have successfully generated your interview. you'll be able to see it after I end this call. Again, thank you for calling. and God bless on your interview. Bye for now!",
             "blocking": true
           }
         ]
@@ -284,14 +289,6 @@ export const generator: CreateWorkflowDTO = {
       "condition": {
         "type": "ai",
         "prompt": "If successfully collected all required variables "
-      }
-    },
-    {
-      "from": "API Request",
-      "to": "node_1749465567639",
-      "condition": {
-        "type": "ai",
-        "prompt": "API request completed"
       }
     }
   ],
