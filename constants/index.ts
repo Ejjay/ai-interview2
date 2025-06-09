@@ -134,7 +134,7 @@ export const generator: CreateWorkflowDTO = {
             "enum": [],
             "type": "string",
             "title": "role",
-            "description": "Okay {{ actualName }} What role should would you like to train for?  For example Programming, Call Center, guitar fingerstyle or Word of God..."
+            "description": "Okay {{ username }} What role should would you like to train for?  For example Programming, Call Center, guitar fingerstyle or Word of God..."
           },
           {
             "enum": [
@@ -171,99 +171,64 @@ export const generator: CreateWorkflowDTO = {
         ]
       },
       "messagePlan": {
-        "firstMessage": "Hello {{ actualName }} Welcome to Prepwise created by Christ Son Alloso!. Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you, Are you ready {{ actualName }}?"
+        "firstMessage": "Hello {{ username }} Welcome to Prepwise created by Christ Son Alloso!. Let's prepare your interview. I'll ask you a few questions and generate a perfect interview just for you, Are you ready {{ username }}?"
       }
     },
     {
-      "name": "API Request",
-      "type": "tool",
-      "metadata": {
-        "position": {
-          "x": -598.6637776692708,
-          "y": -507.67753092447913
-        }
-      },
-      "tool": {
-        "url": "https://ej-ai-interviewer.vercel.app/api/vapi/generate",
-        "body": {
-          "type": "object",
-          "required": [
-            "role",
-            "type",
-            "level",
-            "userid",
-            "techstack",
-            "amount"
-          ],
-          "properties": {
-            "role": {
-              "type": "string",
-              "value": "{{ role }}",
-              "description": ""
-            },
-            "type": {
-              "type": "string",
-              "value": "{{ type }}",
-              "description": ""
-            },
-            "level": {
-              "type": "string",
-              "value": "{{ level }}",
-              "description": ""
-            },
-            "amount": {
-              "type": "number",
-              "value": "{{ amount }}",
-              "description": ""
-            },
-            "userid": {
-              "type": "string",
-              "value": "{{ userid }}",
-              "description": ""
-            },
-            "techstack": {
-              "type": "string",
-              "value": "{{ techstack }}",
-              "description": ""
-            }
-          }
-        },
-        "name": "getUserData",
-        "type": "apiRequest",
-        "method": "POST",
-        "function": {
-          "name": "untitled_tool",
-          "parameters": {
-            "type": "object",
-            "required": [],
-            "properties": {}
-          }
-        },
-        "messages": [
-          {
-            "type": "request-start",
-            "content": "ahahh, Okay! Thanks {{ actualName }}, Please wait while I'm generating the interview for you",
-            "blocking": true
-          },
-          {
-            "role": "assistant",
-            "type": "request-complete",
-            "content": "Okay, Got it {{actualName }}.. I have successfully generated your interview. you'll be able to see it after I end this call. Again, thank you for calling. and God bless on your interview. Bye for now!",
-            "endCallAfterSpokenEnabled": true
-          },
-          {
-            "type": "request-failed",
-            "content": "I'm sorry there was a problem generating your interview.",
-            "endCallAfterSpokenEnabled": false
-          },
-          {
-            "type": "request-response-delayed",
-            "content": "Just hold on there",
-            "timingMilliseconds": 3000
-          }
-        ]
+  "name": "API Request",
+  "type": "tool",
+  "metadata": {
+    "position": {
+      "x": -598.6637776692708,
+      "y": -507.67753092447913
+    }
+  },
+  "tool": {
+    "url": "https://ej-ai-interviewer.vercel.app/api/vapi/generate",
+    "method": "POST",
+    "name": "getUserData",
+    "type": "apiRequest",
+    "body": {
+      "role": "{{role}}",
+      "type": "{{type}}",
+      "level": "{{level}}",
+      "amount": "{{amount}}",
+      "userid": "{{userid}}",
+      "techstack": "{{techstack}}"
+    },
+    "function": {
+      "name": "untitled_tool",
+      "parameters": {
+        "type": "object",
+        "required": [],
+        "properties": {}
       }
     },
+    "messages": [
+      {
+        "type": "request-start",
+        "content": "ahahh, Okay! Thanks {{ username }}, Please wait while I'm generating the interview for you",
+        "blocking": true
+      },
+      {
+        "role": "assistant",
+        "type": "request-complete",
+        "content": "Okay, Got it {{username }}.. I have successfully generated your interview. you'll be able to see it after I end this call. Again, thank you for calling. and God bless on your interview. Bye for now!",
+        "endCallAfterSpokenEnabled": true
+      },
+      {
+        "type": "request-failed",
+        "content": "I'm sorry there was a problem generating your interview.",
+        "endCallAfterSpokenEnabled": false
+      },
+      {
+        "type": "request-response-delayed",
+        "content": "Just hold on there",
+        "timingMilliseconds": 3000
+      }
+    ]
+  }
+},
     {
       "name": "node_1749465567639",
       "type": "tool",
@@ -316,7 +281,7 @@ export const generator: CreateWorkflowDTO = {
 export const interviewer: CreateAssistantDTO = {
   name: "Interviewer",
   firstMessage:
-    "Hello there {{ actualName }}! Welcome to prepwise developed by Christ Son Alioso. I appreciate you taking the time for this interview. To get started, can you please introduce yourself and tell me what brings you here today.",
+    "Hello there {{ username }}! Welcome to prepwise developed by Christ Son Alioso. I appreciate you taking the time for this interview. To get started, can you please introduce yourself and tell me what brings you here today.",
   transcriber: {
     provider: "deepgram",
     model: "nova-2",
