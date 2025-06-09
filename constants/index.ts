@@ -197,7 +197,7 @@ export const generator: CreateWorkflowDTO = {
 export const interviewer: CreateAssistantDTO = {
   name: "Interviewer",
   firstMessage:
-    "Hello there {{ actualName }}! Welcome to prepwise developed by Christ Son Alioso. I appreciate you taking the time for this interview. To get started, can you please introduce yourself and tell me what brings you here today."
+    "Hello there {{ actualName }}! Welcome to prepwise developed by Christ Son Alioso. I appreciate you taking the time for this interview. To get started, can you please introduce yourself and tell me what brings you here today.",
   transcriber: {
     provider: "deepgram",
     model: "nova-2",
