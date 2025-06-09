@@ -160,7 +160,7 @@ export const generator: CreateWorkflowDTO = {
             "enum": [],
             "type": "string",
             "title": "techstack",
-            "description": "A list of technologies to cover during the job interview. (Exaples) ..."
+            "description": "A list of technologies to cover during the job interview. For example .... ..."
           },
           {
             "enum": [],
@@ -250,6 +250,16 @@ export const generator: CreateWorkflowDTO = {
             "type": "request-complete",
             "content": "Okay, Got it {{actualName }}.. I have successfully generated your interview. you'll be able to see it after I end this call. Again, thank you for calling. and God bless on your interview. Bye for now!",
             "endCallAfterSpokenEnabled": true
+          },
+          {
+            "type": "request-failed",
+            "content": "I'm sorry there was a problem generating your interview.",
+            "endCallAfterSpokenEnabled": false
+          },
+          {
+            "type": "request-response-delayed",
+            "content": "Just hold on there",
+            "timingMilliseconds": 3000
           }
         ]
       }
@@ -259,8 +269,8 @@ export const generator: CreateWorkflowDTO = {
       "type": "tool",
       "metadata": {
         "position": {
-          "x": -628.9141330284988,
-          "y": 208.4755770903901
+          "x": -585.0604970990576,
+          "y": 62.485278406002664
         }
       },
       "tool": {
@@ -289,6 +299,14 @@ export const generator: CreateWorkflowDTO = {
       "condition": {
         "type": "ai",
         "prompt": "If successfully collected all required variables "
+      }
+    },
+    {
+      "from": "API Request",
+      "to": "node_1749465567639",
+      "condition": {
+        "type": "ai",
+        "prompt": "After Request Completed "
       }
     }
   ],
