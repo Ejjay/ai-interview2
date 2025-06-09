@@ -115,6 +115,7 @@ const Agent = ({
   }, [messages, callStatus, feedbackId, interviewId, router, type, userId]);
 
   const handleCall = async () => {
+    console.log("USER ID AT THE MOMENT OF CLICKING:", userId);
     setCallStatus(CallStatus.CONNECTING);
 
     if (type === "generate") {
