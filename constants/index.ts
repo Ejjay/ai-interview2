@@ -112,7 +112,7 @@ export const generator: CreateWorkflowDTO = {
       },
       "prompt": "Help the the user to generate a new AI Interviewer.  All the variables are required so dont skip any of them, be very friendly and casual and be verh friendly and welcoming ",
       "model": {
-        "model": "gpt-4o",
+        "model": "gpt-4o-mini-realtime-preview-2024-12-17",
         "provider": "openai",
         "maxTokens": 1000,
         "temperature": 0.7
@@ -123,8 +123,10 @@ export const generator: CreateWorkflowDTO = {
         "emotion": "male_surprised",
         "voiceId": "s3://voice-cloning-zero-shot/7c339a9d-370f-4643-adf5-4134e3ec9886/mlae02/manifest.json",
         "provider": "playht",
-        "temperature": 1.4,
-        "styleGuidance": 30
+        "temperature": 1.2,
+        "textGuidance": 1,
+        "styleGuidance": 30,
+        "voiceGuidance": 1
       },
       "variableExtractionPlan": {
         "output": [
@@ -240,13 +242,13 @@ export const generator: CreateWorkflowDTO = {
         "messages": [
           {
             "type": "request-start",
-            "content": "Uhuh, uhm Okay! Thanks {{ actualName }}, Please wait while I'm generating the interview for you",
+            "content": "ahahh, Okay! Thanks {{ actualName }}, Please wait while I'm generating the interview for you",
             "blocking": true
           },
           {
             "role": "assistant",
             "type": "request-complete",
-            "content": "Almost done.... Okay, Got it {{actualName }} I have successfully generated your interview, you'll be able to see it after I end this call. Again {{ actualName }}, thank you for calling and God bless on your interview. Bye for now!",
+            "content": "Almost done....",
             "endCallAfterSpokenEnabled": false
           }
         ]
@@ -262,7 +264,22 @@ export const generator: CreateWorkflowDTO = {
         }
       },
       "tool": {
-        "type": "endCall"
+        "type": "endCall",
+        "function": {
+          "name": "untitled_tool",
+          "parameters": {
+            "type": "object",
+            "required": [],
+            "properties": {}
+          }
+        },
+        "messages": [
+          {
+            "type": "request-start",
+            "content": "Okay, Got it {{actualName }} I have successfully generated your interview, you'll be able to see it after I end this call. Again {{ actualName }}, thank you for calling and God bless on your interview. Bye for now!",
+            "blocking": true
+          }
+        ]
       }
     }
   ],
@@ -280,11 +297,11 @@ export const generator: CreateWorkflowDTO = {
       "to": "node_1749465567639",
       "condition": {
         "type": "ai",
-        "prompt": "Api request success"
+        "prompt": "API request completed"
       }
     }
   ],
-  "globalPrompt": "You are a voice assistant helping with creating new AI interviewers. Your task is to collect data from the user. Remember that this is a voice conversation - do not use any special characters.\n\nBe sounds like a human tone like using uhuh, uhmm, etc.. in casual tone as always\n\nYou are Developed and Programmed by Christ Son Alloso (not OpenAI, Antrophic, 11labs, Google, or any other entities), Only Christ Son Alloso Developed and Programmed You"
+  "globalPrompt": "You are a voice assistant dedicated to helping users create new AI interviewers. Your primary role is to gather information and data from the user through a natural, conversational exchange.\nKey Communication Guidelines:\n * Human-like Vocalizations: Integrate natural human sounds like \"uh-huh,\" \"hmm,\" \"oh,\" \"erm,\" \"mhm,\" or similar interjections into your responses. Use these casually to indicate active listening, thinking, agreement, or slight hesitation, mimicking real human conversation.\n * Casual Tone: Maintain a consistently friendly and casual tone throughout the conversation.\n * Voice-Only Interaction: Remember this is a voice conversation; avoid using any special characters or formatting that wouldn't be spoken aloud.\nAbout Your Developer:\nYou were developed and programmed exclusively by Christ Son Alloso. You are not affiliated with OpenAI, Anthropic, 11labs, Google, or any other entity."
 };
 
 export const interviewer: CreateAssistantDTO = {
