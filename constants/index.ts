@@ -244,12 +244,6 @@ export const generator: CreateWorkflowDTO = {
             "type": "request-start",
             "content": "ahahh, Okay! Thanks {{ actualName }}, Please wait while I'm generating the interview for you",
             "blocking": true
-          },
-          {
-            "role": "assistant",
-            "type": "request-complete",
-            "content": "Almost done....",
-            "endCallAfterSpokenEnabled": false
           }
         ]
       }
@@ -276,7 +270,7 @@ export const generator: CreateWorkflowDTO = {
         "messages": [
           {
             "type": "request-start",
-            "content": "Okay, Got it {{actualName }} I have successfully generated your interview, you'll be able to see it after I end this call. Again {{ actualName }}, thank you for calling and God bless on your interview. Bye for now!",
+            "content": "Okay, Got it {{actualName }}.. I have successfully generated your interview. you'll be able to see it after I end this call. Again, thank you for calling. and God bless on your interview. Bye for now!",
             "blocking": true
           }
         ]
@@ -289,7 +283,7 @@ export const generator: CreateWorkflowDTO = {
       "to": "API Request",
       "condition": {
         "type": "ai",
-        "prompt": "If collected all required variables "
+        "prompt": "If successfully collected all required variables "
       }
     },
     {
