@@ -98,7 +98,7 @@ export const mappings = {
 };
 
 export const generator: CreateWorkflowDTO = {
-  "name": "Untitled Workflow",
+  "name": "generate",
   "nodes": [
     {
       "name": "introduction",
@@ -228,7 +228,7 @@ export const generator: CreateWorkflowDTO = {
             }
           }
         },
-        "name": "generate",
+        "name": "getUserData",
         "type": "apiRequest",
         "method": "POST",
         "function": {
